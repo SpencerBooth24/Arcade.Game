@@ -162,8 +162,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
       panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));  //sizes the JPanel
       panel.setLayout(null);   //set the layout
 
-       canvas.addMouseListener(this);
-       canvas.addKeyListener(this);
+
 
 
       // creates a canvas which is a blank rectangular area of the screen onto which the application can draw
@@ -173,7 +172,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
       canvas.setIgnoreRepaint(true);
    
       panel.add(canvas);  // adds the canvas to the panel.
-   
+
+       canvas.addMouseListener(this);
+       canvas.addKeyListener(this);
+
+
       // frame operations
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //makes the frame close and exit nicely
       frame.pack();  //adjusts the frame and its contents so the sizes are at their default or larger

@@ -60,7 +60,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     private Win win;
     public int randq;
     public int randw;
-
+public int numOfBalls=0;
+    public Ball[] balls;
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -98,6 +99,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         winScreen=Toolkit.getDefaultToolkit().getImage("Win.png");
         win= new Win(0,0);
 
+        balls= new Ball[5];
+        for (int x=0;x< balls.length;x++){
+            balls[x]= new Ball(0,0,0,0);
+        }
 
 	}// BasicGameApp()
 
@@ -234,6 +239,10 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        balls[numOfBalls].isAlive=true;
+        balls[numOfBalls].dy=1;
+        balls[numOfBalls].dx= 1;
+        numOfBalls=numOfBalls+1;
 
     }
 

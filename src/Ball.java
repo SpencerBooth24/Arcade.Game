@@ -33,7 +33,7 @@ public class Ball {
         dy = pdy;
         width = 50;
         height = 50;
-        isAlive = true;
+        isAlive = false;
         randomStart();
 
     } // constructor

@@ -216,7 +216,7 @@ public int numOfBalls=0;
             g.drawImage(winScreen,0,0,1000,700,null); //winscreen
         }
 		g.dispose();
-
+        /
 		bufferStrategy.show();
 
 	}

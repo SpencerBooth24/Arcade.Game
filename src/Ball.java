@@ -31,8 +31,8 @@ public class Ball {
         ypos = pYpos;
         dx = pdx;
         dy = pdy;
-        width = 50;
-        height = 50;
+        width = 30;
+        height = 30;
         isAlive = false;
         randomStart();
 

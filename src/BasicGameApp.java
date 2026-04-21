@@ -87,7 +87,7 @@ public int numOfBalls=0;
         ballPic = Toolkit.getDefaultToolkit().getImage("ball.jpg"); //load the picture
         ball = new Ball(randx, randy, randq+5, randw+5);
         hoopPic = Toolkit.getDefaultToolkit().getImage("hoop.png"); //load the picture
-        hoop = new Hoop(10,100);
+        hoop = new Hoop(10,150);
 
 
 		bronPic = Toolkit.getDefaultToolkit().getImage("bron.png"); //load the picture
@@ -204,7 +204,7 @@ public int numOfBalls=0;
 
       //draw the image of the characters
 
-        g.drawImage(hoopPic,hoop.xpos,150,hoop.width,hoop.height,null);
+        g.drawImage(hoopPic,hoop.xpos,hoop.ypos,hoop.width,hoop.height,null);
 		g.drawImage(bronPic, bron.xpos, bron.ypos, bron.width, bron.height, null);
         g.drawImage(jordanPic,jordan.xpos,jordan.ypos,jordan.width,jordan.height,null);
         g.drawImage(kobePic,kobe.xpos,kobe.ypos,kobe.width, kobe.height, null);
@@ -229,7 +229,18 @@ public int numOfBalls=0;
 
     @Override
     public void keyPressed(KeyEvent e) {
-        hoop.ypos=hoop.ypos+1;
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_UP) {
+            // Move the hoop up
+            hoop.ypos = hoop.ypos - 10;
+            hoop.yh = hoop.yh - 10;
+        }
+        else if (key == KeyEvent.VK_DOWN) {
+            // Move the hoop down
+            hoop.ypos = hoop.ypos + 10;
+            hoop.yh = hoop.yh + 10;
+        }
     }
 
     @Override
@@ -237,18 +248,25 @@ public int numOfBalls=0;
 
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        balls[numOfBalls].isAlive=true;
-        balls[numOfBalls].dy=1;
-        balls[numOfBalls].dx= 1;
-        numOfBalls=numOfBalls+1;
+        if (numOfBalls < balls.length) {
+            balls[numOfBalls].isAlive = true;
+            balls[numOfBalls].xpos = 1;
+            balls[numOfBalls].ypos = 1;
+            balls[numOfBalls].dx = 1;
+            balls[numOfBalls].dy = 1;
 
+            numOfBalls++;
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        for (int x=0;x< balls.length;x++){
+            balls[x]= new Ball(0,0,0,0);
+        }
     }
 
     @Override

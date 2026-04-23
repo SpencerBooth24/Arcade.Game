@@ -63,6 +63,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 public int numOfBalls=0;
     public Ball[] balls;
 
+
    // Main method definition
    // This is the code that runs first and automatically
 	public static void main(String[] args) {
@@ -100,6 +101,17 @@ public int numOfBalls=0;
         win= new Win(0,0);
 
         balls= new Ball[5];
+        for (int x = 0; x < balls.length; x++) {
+            balls[x] = new Ball(0, 0, 0, 0);
+            balls[x].isAlive = false; // Start them all as dead
+        }
+
+        balls[0].xpos = randx;
+        balls[0].ypos = randy;
+        balls[0].dx = 4;
+        balls[0].dy = 4;
+        balls[0].isAlive = true;
+        numOfBalls = 1;
         for (int x=0;x< balls.length;x++){
             balls[x]= new Ball(0,0,0,0);
         }
@@ -135,17 +147,20 @@ public int numOfBalls=0;
         jordan.move();
         kobe.move();
 
-        if (ball.hitbox.intersects(bron.hitbox)||ball.hitbox.intersects(jordan.hitbox)||ball.hitbox.intersects(kobe.hitbox)){
-            ball.dx=-ball.dx;
-            ball.dy=-ball.dy;
-            randq = (int)(Math.random()*10); //ball intersects with characters
-            randw = (int)(Math.random()*10);
+        for (int x = 0; x < balls.length; x++) {
+            if (balls[x].isAlive) {
+                balls[x].move();
+
+                if (balls[x].hitbox.intersects(bron.hitbox) || balls[x].hitbox.intersects(jordan.hitbox) || balls[x].hitbox.intersects(kobe.hitbox)) {
+                    balls[x].dx = -balls[x].dx;
+                    balls[x].dy = -balls[x].dy;
+                }
+
+                if (balls[x].hitbox.intersects(hoop.hitbox)) {
+                    win.isAlive = true;
+                }
+            }
         }
-
-
-       if (ball.hitbox.intersects(hoop.hitbox)){
-           win.isAlive= true; //winscreen
-       }
 
 	}
 	
@@ -208,11 +223,15 @@ public int numOfBalls=0;
 		g.drawImage(bronPic, bron.xpos, bron.ypos, bron.width, bron.height, null);
         g.drawImage(jordanPic,jordan.xpos,jordan.ypos,jordan.width,jordan.height,null);
         g.drawImage(kobePic,kobe.xpos,kobe.ypos,kobe.width, kobe.height, null);
-        g.drawImage(ballPic,ball.xpos,ball.ypos,ball.width,ball.height,null);
+        //g.drawImage(ballPic,ball.xpos,ball.ypos,ball.width,ball.height,null);
         g.drawRect(hoop.hitbox.x,hoop.hitbox.y,hoop.hitbox.width,hoop.hitbox.height);
         g.drawRect(bron.hitbox.x,bron.hitbox.y,bron.hitbox.width,bron.hitbox.height);
 
-        if (balls[numOfBalls])
+            for (int x=0;x<balls.length;x++){
+                if (balls[x].isAlive==true) {
+                    g.drawImage(ballPic, balls[x].xpos, balls[x].ypos, balls[x].width, balls[x].height, null);
+                }
+            }
 
         if (win.isAlive==true){
             g.drawImage(winScreen,0,0,1000,700,null); //winscreen
@@ -256,10 +275,10 @@ public int numOfBalls=0;
         if (numOfBalls < balls.length) {
 
             balls[numOfBalls].isAlive = true;
-            balls[numOfBalls].xpos = 1;
-            balls[numOfBalls].ypos = 1;
-            balls[numOfBalls].dx = 1;
-            balls[numOfBalls].dy = 1;
+            balls[numOfBalls].xpos = ball.xpos;
+            balls[numOfBalls].ypos = ball.ypos;
+            balls[numOfBalls].dx = 4;
+            balls[numOfBalls].dy = 4;
 
 
             numOfBalls++;
@@ -268,9 +287,7 @@ public int numOfBalls=0;
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (int x=0;x< balls.length;x++){
-            balls[x]= new Ball(0,0,0,0);
-        }
+
     }
 
     @Override

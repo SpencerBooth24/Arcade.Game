@@ -212,6 +212,8 @@ public int numOfBalls=0;
         g.drawRect(hoop.hitbox.x,hoop.hitbox.y,hoop.hitbox.width,hoop.hitbox.height);
         g.drawRect(bron.hitbox.x,bron.hitbox.y,bron.hitbox.width,bron.hitbox.height);
 
+        if (balls[numOfBalls])
+
         if (win.isAlive==true){
             g.drawImage(winScreen,0,0,1000,700,null); //winscreen
         }
@@ -252,11 +254,13 @@ public int numOfBalls=0;
     @Override
     public void mouseClicked(MouseEvent e) {
         if (numOfBalls < balls.length) {
+
             balls[numOfBalls].isAlive = true;
             balls[numOfBalls].xpos = 1;
             balls[numOfBalls].ypos = 1;
             balls[numOfBalls].dx = 1;
             balls[numOfBalls].dy = 1;
+
 
             numOfBalls++;
         }

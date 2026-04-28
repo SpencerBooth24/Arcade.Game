@@ -99,7 +99,7 @@ public int numOfBalls=0;
         kobe = new Kobe(700,500);
         winScreen=Toolkit.getDefaultToolkit().getImage("Win.png");
         win= new Win(0,0);
-
+        //give the balls in the array value VVV
         balls= new Ball[5];
         for (int x = 0; x < balls.length; x++) {
             balls[x] = new Ball(0, 0, 0, 0);
@@ -150,19 +150,43 @@ public int numOfBalls=0;
         for (int x = 0; x < balls.length; x++) {
             if (balls[x].isAlive) {
                 balls[x].move();
-
-                if (balls[x].hitbox.intersects(bron.hitbox) || balls[x].hitbox.intersects(jordan.hitbox) || balls[x].hitbox.intersects(kobe.hitbox)) {
-                    balls[x].dx = -balls[x].dx;
-                    balls[x].dy = -balls[x].dy;
+                //reverse direction for the balls
+                if (balls[x].hitbox.intersects(bron.hitbox)){
+                    fixStuck(balls[x],bron.hitbox);
+                } else if (balls[x].hitbox.intersects(jordan.hitbox)) {
+                    fixStuck(balls[x],bron.hitbox);
+                } else if (balls[x].hitbox.intersects(kobe.hitbox)) {
+                    fixStuck(balls[x],kobe.hitbox);
                 }
+
+               // if (balls[x].hitbox.intersects(bron.hitbox) || balls[x].hitbox.intersects(jordan.hitbox) || balls[x].hitbox.intersects(kobe.hitbox)) {
+               //     balls[x].dx = -balls[x].dx;
+               //     balls[x].dy = -balls[x].dy;
+               // }
 
                 if (balls[x].hitbox.intersects(hoop.hitbox)) {
                     win.isAlive = true;
                 }
             }
+
         }
 
 	}
+    //method for making sure that the balls don't get stuck when they interact with the characters
+    public void fixStuck(Ball b, Rectangle characterH) {
+        // Reverse direction
+        b.dy = -b.dy;
+        b.dx = -b.dx;
+
+        // get out of hitbox
+        if (b.ypos < characterH.y) {
+            b.ypos = characterH.y - b.height - 1;
+        } else {
+            b.ypos = characterH.y + characterH.height + 1;
+        }
+    }
+
+
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
@@ -247,7 +271,7 @@ public int numOfBalls=0;
     public void keyTyped(KeyEvent e) {
 
     }
-
+//moving the hoop with arrow keys
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -269,11 +293,11 @@ public int numOfBalls=0;
 
     }
 
-
+//spawning in more balls upon the click of the mouse
     @Override
     public void mouseClicked(MouseEvent e) {
         if (numOfBalls < balls.length) {
-
+            //giving the balls values when they come in
             balls[numOfBalls].isAlive = true;
             balls[numOfBalls].xpos = ball.xpos;
             balls[numOfBalls].ypos = ball.ypos;

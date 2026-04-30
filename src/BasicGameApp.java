@@ -62,7 +62,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public int randw;
 public int numOfBalls=0;
     public Ball[] balls;
-
+//add the array
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -91,7 +91,7 @@ public int numOfBalls=0;
         hoop = new Hoop(10,150);
 
 
-		bronPic = Toolkit.getDefaultToolkit().getImage("bron.png"); //load the picture
+		bronPic = Toolkit.getDefaultToolkit().getImage("bron.png"); //load the pictures
 		bron = new Lebron(100,500);
         jordanPic = Toolkit.getDefaultToolkit().getImage("jordan.png");
         jordan = new Jordan(400,500);
@@ -110,7 +110,7 @@ public int numOfBalls=0;
         balls[0].ypos = randy;
         balls[0].dx = 4;
         balls[0].dy = 4;
-        balls[0].isAlive = true;
+        balls[0].isAlive = true;//give my array values to start with
         numOfBalls = 1;
         for (int x=0;x< balls.length;x++){
             balls[x]= new Ball(0,0,0,0);
@@ -254,7 +254,7 @@ public int numOfBalls=0;
             for (int x=0;x<balls.length;x++){
                 if (balls[x].isAlive==true) {
                     g.drawImage(ballPic, balls[x].xpos, balls[x].ypos, balls[x].width, balls[x].height, null);
-                }
+                }//make the balls in the array appear
             }
 
         if (win.isAlive==true){
@@ -305,7 +305,7 @@ public int numOfBalls=0;
             balls[numOfBalls].dy = 4;
 
 
-            numOfBalls++;
+            numOfBalls++;//adding balls when the mouse is clicked
         }
     }
 
